@@ -11,7 +11,6 @@ async function main() {
   const baseURL: string = Bun.argv[2];
   console.log(`Crawling beginning at '${ baseURL }'`);
   const crawledPages: Pages | null = await crawlPage(baseURL, baseURL, {});
-  console.log(crawledPages);
   if (crawledPages != null) {
     printReport(crawledPages);
   }

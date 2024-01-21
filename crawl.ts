@@ -58,10 +58,12 @@ export async function crawlPage(baseURL: string, currentURL: string, pages: Page
     try {
       const htmlBody = await response.text();
       const urls  = getURLsFromHTML(htmlBody, baseURL);
-      urls.forEach(url => {
-        const newPages: object = crawlPage(baseURL, url, pages);
-        pages = Object.assign(pages, newPages);
-      });
+      for (const url of urls) {
+        const newPages: Pages | null = await crawlPage(baseURL, url, pages);
+        if (newPages) {
+          pages = Object.assign(pages, newPages);
+        }
+      };
       //console.log(htmlBody);
     } catch (error) {
       console.error('Error reading response body:', error);
@@ -71,7 +73,7 @@ export async function crawlPage(baseURL: string, currentURL: string, pages: Page
     console.error('Network error:', error);
     return null;
   }
-  console.log(pages);
+  //console.log(pages);
   return pages;
 }
 
