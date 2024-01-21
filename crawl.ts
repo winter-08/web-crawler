@@ -31,7 +31,6 @@ export async function crawlPage(baseURL: string, currentURL: string, pages: Page
   const currentBase = new URL(currentURL);
   const normalizedURL = normalizeURL(currentURL);
   if (currentBase.origin != baseURL) {
-    console.log('gone off site');
     return pages;
   }
   if (pages[normalizedURL]) {
@@ -51,7 +50,6 @@ export async function crawlPage(baseURL: string, currentURL: string, pages: Page
     }
     const contentType = response.headers.get('content-type');
     if (!contentType?.includes('text/html')) {
-      console.error('Invalid content-type:', contentType);
       return null;
     }
 
@@ -64,7 +62,6 @@ export async function crawlPage(baseURL: string, currentURL: string, pages: Page
           pages = Object.assign(pages, newPages);
         }
       };
-      //console.log(htmlBody);
     } catch (error) {
       console.error('Error reading response body:', error);
       return null;
@@ -73,7 +70,6 @@ export async function crawlPage(baseURL: string, currentURL: string, pages: Page
     console.error('Network error:', error);
     return null;
   }
-  //console.log(pages);
   return pages;
 }
 

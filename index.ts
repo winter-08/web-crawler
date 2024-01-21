@@ -3,7 +3,6 @@ import { printReport } from "./report";
 import type { Pages } from "./types";
 
 async function main() {
-  console.log(Bun.argv);
   if(Bun.argv.length != 3) {
     console.log('Please provide only 1 input');
     return
